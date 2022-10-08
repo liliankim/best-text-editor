@@ -18,11 +18,43 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
+      new HtmlWebpackPlugin({
+        template: './index.html',
+        title: 'html info'
+      }),
+
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js',
+      })
+
+      new WebpackPwaManifest({
+        fingerprints: false,
+        inject:true,
+        name: 'Contact Cards',
+        short_name: 'Contact',
+        description: 'text editor app',
+        background_color: 
+  
+
+      })
+
       
     ],
 
     module: {
       rules: [
+        {
+          test: /\.m?js$/,
+          exclude:/node_modules/,
+          use: {
+            loader:'babel-loader',
+            options: {
+              preset: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-object-rest-spread', @babel/transform-runtime'],
+            }
+          }
+        }
         
       ],
     },
